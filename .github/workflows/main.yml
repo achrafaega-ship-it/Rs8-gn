@@ -19,8 +19,9 @@ jobs:
       - run: python update.py
       - name: Save
         run: |
-          git config --global user.name "AEGA-AI-Bot"
+          git config --global user.name "AEGA-Bot"
           git config --global user.email "bot@aega.com"
-          git add tvlist.m3u
-          git commit -m "AI Fix: Updated tvlist.m3u" || exit 0
+          git add playlist.m3u
+          git commit -m "Update playlist.m3u" || exit 0
           git push
+          
