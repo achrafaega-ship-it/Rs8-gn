@@ -18,15 +18,10 @@ def aega_ultra_sniper():
         "https://raw.githubusercontent.com/m3u8playlist/free-iptv-m3u8-list/master/arabic.m3u",
         "https://raw.githubusercontent.com/skatv/skatv/master/arabic.m3u",
         "https://raw.githubusercontent.com/duztin-s/iptv-arabic/main/list.m3u",
-        "https://raw.githubusercontent.com/mahdidz1/iptv/main/arabic.m3u",
-        "http://itv.unreal-m3u.top/ar.m3u",
-        "http://www.pro-ip.tv/arabic.m3u",
-        "http://iptv.serv1.net/ar.m3u"
+        "https://raw.githubusercontent.com/mahdidz1/iptv/main/arabic.m3u"
     ]
     
     targets = ['beIN', 'OSN', 'بين', 'أوزن', 'alkass', 'ssc']
-    qualities = ['4k', 'fhd', 'hd', '1080p', '720p']
-    
     output = "#EXTM3U\n"
     added_links = set()
 
@@ -37,15 +32,13 @@ def aega_ultra_sniper():
                 lines = r.text.splitlines()
                 for i in range(len(lines)):
                     if lines[i].startswith("#EXTINF"):
-                        name_line = lines[i]
-                        if any(t.lower() in name_line.lower() for t in targets):
+                        if any(t.lower() in lines[i].lower() for t in targets):
                             if i + 1 < len(lines):
                                 link = lines[i+1].strip()
                                 if link.startswith("http") and link not in added_links:
-                                    name = name_line.split(',')[-1]
-                                    if any(q.lower() in name.lower() or q.lower() in name_line.lower() for q in qualities):
-                                        output += f"#EXTINF:-1, {name}\n{link}\n"
-                                        added_links.add(link)
+                                    name = lines[i].split(',')[-1]
+                                    output += f"#EXTINF:-1, {name}\n{link}\n"
+                                    added_links.add(link)
         except:
             continue
     return output
