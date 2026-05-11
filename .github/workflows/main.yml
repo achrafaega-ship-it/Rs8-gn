@@ -1,4 +1,4 @@
-name: Ultra-Sniper-Bot
+name: AI-Sniper-Bot
 
 on:
   schedule:
@@ -19,8 +19,8 @@ jobs:
       - run: python update.py
       - name: Save
         run: |
-          git config --global user.name "AEGA-Ultra-Bot"
+          git config --global user.name "AEGA-AI-Bot"
           git config --global user.email "bot@aega.com"
           git add tvlist.m3u
-          git commit -m "Fix Empty File" || exit 0
+          git commit -m "AI Fix: Updated tvlist.m3u" || exit 0
           git push
