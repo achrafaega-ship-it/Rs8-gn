@@ -22,7 +22,5 @@ jobs:
           git config --global user.name "AEGA-Ultra-Bot"
           git config --global user.email "bot@aega.com"
           git add tvlist.m3u
-          git commit -m "Update $(date)" || exit 0
+          git commit -m "Fix Empty File" || exit 0
           git push
-
-
