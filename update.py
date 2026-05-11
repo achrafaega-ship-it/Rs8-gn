@@ -52,3 +52,4 @@ if __name__ == "__main__":
     result = aega_ai_sniper()
     with open("tvlist.m3u", "w", encoding='utf-8') as f:
         f.write(result)
+        
