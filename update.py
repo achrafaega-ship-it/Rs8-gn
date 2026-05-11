@@ -1,6 +1,6 @@
 import requests
 
-def aega_ai_sniper():
+def aega_final_sniper():
     sources = [
         "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/ar.m3u",
         "https://raw.githubusercontent.com/MoiraSama/IPTV-Arabic/main/Arabic.m3u",
@@ -8,30 +8,26 @@ def aega_ai_sniper():
         "https://raw.githubusercontent.com/FazzRazz/IPTV/master/Arabic.m3u",
         "https://raw.githubusercontent.com/byte-capsule/Fan_IPTV/main/IPTV_Arabic.m3u",
         "https://raw.githubusercontent.com/Yan-S-S/IPTV/main/Arabic.m3u",
-        "https://raw.githubusercontent.com/ZonS-S/IPTV/main/Arabic.m3u",
         "https://raw.githubusercontent.com/M3U-Daily/M3U-Daily/main/Arabic.m3u",
         "https://raw.githubusercontent.com/LITUAN-IPTV/IPTV/main/Arabic.m3u",
-        "https://raw.githubusercontent.com/sam-iptv/arabic/main/ar.m3u",
-        "https://raw.githubusercontent.com/iptv-restream/iptv/master/arabic.m3u",
-        "https://raw.githubusercontent.com/K-Maina/IPTV_Auto/main/Arabic.m3u",
-        "https://raw.githubusercontent.com/Global-IPTV/IPTV-Lists/master/Arabic.m3u",
-        "https://raw.githubusercontent.com/m3u8playlist/free-iptv-m3u8-list/master/arabic.m3u",
-        "https://raw.githubusercontent.com/skatv/skatv/master/arabic.m3u",
-        "https://raw.githubusercontent.com/duztin-s/iptv-arabic/main/list.m3u",
-        "https://raw.githubusercontent.com/mahdidz1/iptv/main/arabic.m3u"
+        "https://raw.githubusercontent.com/sam-iptv/arabic/main/ar.m3u"
     ]
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     
-    targets = ['beIN', 'OSN', 'بين', 'أوزن', 'alkass', 'ssc']
+    targets = ['beIN', 'OSN', 'بين', 'أوزن', 'alkass', 'ssc', 'الجزيرة']
     output = "#EXTM3U\n"
-    added_links = set()
+    
+    # روابط يوتيوب الرسمية للبث المباشر
+    output += "#EXTINF:-1, beIN SPORTS News Live\nhttps://www.youtube.com/watch?v=X_shN9F90vY\n"
+    output += "#EXTINF:-1, Al Jazeera Arabic Live\nhttps://www.youtube.com/watch?v=bNyUCPDXtgE\n"
 
+    added_links = set()
     for url in sources:
         try:
-            r = requests.get(url, headers=headers, timeout=30)
+            r = requests.get(url, headers=headers, timeout=25)
             if r.status_code == 200:
                 lines = r.text.splitlines()
                 for i in range(len(lines)):
@@ -43,13 +39,12 @@ def aega_ai_sniper():
                                     name = lines[i].split(',')[-1].strip()
                                     output += f"#EXTINF:-1, {name}\n{link}\n"
                                     added_links.add(link)
-        except Exception:
+        except:
             continue
-            
     return output
 
 if __name__ == "__main__":
-    result = aega_ai_sniper()
-    with open("tvlist.m3u", "w", encoding='utf-8') as f:
-        f.write(result)
+    content = aega_final_sniper()
+    with open("playlist.m3u", "w", encoding='utf-8') as f:
+        f.write(content)
         
